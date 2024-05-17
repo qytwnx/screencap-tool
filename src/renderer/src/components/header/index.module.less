@@ -1,0 +1,16 @@
+.header-container {
+  @apply w-full h-10 flex items-center justify-between;
+  .header-container-move {
+    @apply flex-1 h-full cursor-grab flex-shrink-0;
+    -webkit-app-region: drag;
+  }
+  .header-container-operate {
+    @apply flex-shrink-0 mr-5 flex items-center gap-2;
+    .header-container-operate-item {
+      @apply cursor-pointer rounded-full bg-none hover:bg-gray-200 active:bg-gray-300;
+    }
+    .header-container-operate-item-icon {
+      @apply text-2xl p-1;
+    }
+  }
+}

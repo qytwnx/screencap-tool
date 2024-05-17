@@ -1,32 +1,73 @@
 import {
   CloseOutlined,
   GithubOutlined,
-  MinusOutlined
+  MinusOutlined,
+  MoonFilled,
+  SunFilled
 } from '@ant-design/icons';
-import './index.less';
+import { useAppStore } from '@renderer/store';
+import styles from './index.module.less';
+
 const Header = () => {
+  const [isdark, setIsdark] = useAppStore((state) => [
+    state.isdark,
+    state.setIsdark
+  ]);
+
   return (
     <>
-      <div className="header-container">
-        <div className="header-container-move"></div>
-        <div
-          className="flex-shrink-0 mr-5 flex items-center gap-2 text-xl"
-          onClick={() => window.api.openUrl('https://github.com/qytwnx')}
-        >
-          <GithubOutlined className="cursor-pointer" />
-          <div className="w-0.5 h-4 bg-gray-400"></div>
+      <div className={styles['header-container']}>
+        <div className={styles['header-container-move']}></div>
+        <div className={styles['header-container-operate']}>
+          <GithubOutlined
+            className={[
+              styles['header-container-operate-item'],
+              styles['header-container-operate-item-icon']
+            ].join(' ')}
+            onClick={() => window.api.openUrl('https://github.com/qytwnx')}
+          />
+          <label className={styles['header-container-operate-item']}>
+            <input
+              type="checkbox"
+              className="theme-controller"
+              hidden={true}
+              value={isdark ? 'dark' : 'light'}
+              onChange={() => setIsdark(!isdark)}
+            />
+            {isdark ? (
+              <SunFilled
+                className={[
+                  'theme-controller',
+                  'fill-current',
+                  styles['header-container-operate-item-icon']
+                ].join(' ')}
+              />
+            ) : (
+              <MoonFilled
+                className={[
+                  'theme-controller',
+                  'fill-current',
+                  styles['header-container-operate-item-icon']
+                ].join(' ')}
+              />
+            )}
+          </label>
+          <div className="w-0.5 h-4 bg-gray-400" />
           <div className="flex-shrink-0 flex gap-2">
-            {/* active:bg-gray-300 */}
             <MinusOutlined
-              className="cursor-pointer rounded-full p-1 bg-none hover:bg-gray-200 active:bg-gray-300"
+              className={[
+                styles['header-container-operate-item'],
+                styles['header-container-operate-item-icon']
+              ].join(' ')}
               onClick={() => window.api.customWindowMinimize()}
             />
             <CloseOutlined
-              className="cursor-pointer rounded-full p-1 bg-none hover:bg-gray-200 active:bg-gray-300"
+              className={[
+                styles['header-container-operate-item'],
+                styles['header-container-operate-item-icon']
+              ].join(' ')}
               onClick={() => window.api.customWindowClose()}
             />
-            {/* <ReduceOne className="cursor-pointer hover:text-blue-600" /> */}
-            {/* <CloseOne className="cursor-pointer hover:text-red-600" /> */}
           </div>
         </div>
       </div>
