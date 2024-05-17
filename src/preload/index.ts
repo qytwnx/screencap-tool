@@ -11,6 +11,18 @@ const api = {
   },
   openUrl: (url: string) => {
     ipcRenderer.send('openUrl', url);
+  },
+  chooseFilePath: (defaultPath?: string): Promise<Array<string> | undefined> => {
+    return ipcRenderer.invoke('chooseFilePath', defaultPath);
+  },
+  deleteSettingById: (data: ISetting): Promise<number> => {
+    return ipcRenderer.invoke('deleteSettingById', data);
+  },
+  updateSettingById: (data: ISetting): Promise<number> => {
+    return ipcRenderer.invoke('updateSettingById', data);
+  },
+  selectOneSetting: (data: ISetting): Promise<ISetting> => {
+    return ipcRenderer.invoke('selectOneSetting', data);
   }
 };
 

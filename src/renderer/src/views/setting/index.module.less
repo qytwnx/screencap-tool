@@ -1,9 +1,21 @@
 .setting-container {
   @apply w-full h-full;
   .setting-container-item {
-    @apply my-2;
+    @apply my-1;
     .setting-container-item-title {
       @apply border-l-4 px-2 text-xl font-bold;
+    }
+    .setting-container-item-content {
+      @apply my-2 border rounded-md p-2;
+      .setting-container-item-content-item {
+        @apply my-1 flex items-center;
+        .setting-container-item-content-item-label {
+          @apply flex-shrink-0;
+        }
+        .setting-container-item-content-item-content {
+          @apply flex-shrink-0 flex-1 flex items-center;
+        }
+      }
     }
   }
 }

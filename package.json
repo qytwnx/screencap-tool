@@ -26,6 +26,7 @@
     "@electron-toolkit/utils": "^3.0.0",
     "@remix-run/router": "^1.16.1",
     "antd": "^5.17.2",
+    "better-sqlite3": "^10.0.0",
     "electron-updater": "^6.1.7",
     "react-router-dom": "^6.23.1",
     "zustand": "^4.5.2"

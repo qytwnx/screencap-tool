@@ -1,6 +1,8 @@
 import App from '@renderer/App';
 import { lazy } from 'react';
 import { createHashRouter } from 'react-router-dom';
+import SettingLoader from '@renderer/views/setting/loader';
+import SettingAction from '@renderer/views/setting/action';
 
 const router = createHashRouter([
   {
@@ -21,6 +23,8 @@ const router = createHashRouter([
       },
       {
         path: 'setting',
+        loader: SettingLoader,
+        action: SettingAction,
         Component: lazy(() => import('@renderer/views/setting'))
       }
     ]

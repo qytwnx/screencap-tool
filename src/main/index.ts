@@ -1,7 +1,13 @@
 import { BrowserWindow, app } from 'electron';
 import { electronApp, is, optimizer } from '@electron-toolkit/utils';
 import { createWindow } from './config';
-import { registerWindowControl, registerOpenUrl } from './ipc';
+import { initDatabase } from './database';
+import {
+  registerWindowControl,
+  registerOpenUrl,
+  registerFileOperate
+} from './ipc';
+import { registerSqlOperate } from './ipc/sqlOperate';
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -18,8 +24,11 @@ app.whenReady().then(() => {
   });
 
   const mainWindow = createWindow();
+  initDatabase();
   registerWindowControl(mainWindow);
   registerOpenUrl();
+  registerFileOperate(mainWindow);
+  registerSqlOperate();
   if (is.dev) mainWindow.webContents.openDevTools();
 
   app.on('activate', function () {

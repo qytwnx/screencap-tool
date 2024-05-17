@@ -13,6 +13,7 @@ export const createWindow = (): BrowserWindow => {
     resizable: false,
     alwaysOnTop: false,
     autoHideMenuBar: true,
+    maximizable: false,
     y: 10,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
