@@ -1,7 +1,8 @@
 import { ipcMain } from 'electron';
+import { createWindow } from '../config';
 
 export const registerRecording = (): void => {
   ipcMain.on('recordingStart', () => {
-    console.log(66666);
+    const recordWin = createWindow();
   });
 };
