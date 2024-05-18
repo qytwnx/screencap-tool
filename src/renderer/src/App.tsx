@@ -15,9 +15,11 @@ function App(): JSX.Element {
         <div className="flex-shrink-0">
           <Aside />
         </div>
-        <div className="flex-1">
-          <Header />
-          <div className="p-3 w-full h-full">
+        <div className="flex-1 flex flex-col">
+          <div className="flex-shrink-0">
+            <Header />
+          </div>
+          <div className="p-3 w-full flex-1">
             <ConfigProvider
               theme={{
                 algorithm: isdark ? theme.darkAlgorithm : theme.defaultAlgorithm

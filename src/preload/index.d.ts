@@ -13,6 +13,7 @@ declare global {
       deleteSettingById: (data: ISetting) => Promise<number>;
       updateSettingById: (data: ISetting) => Promise<number>;
       selectOneSetting: (data: ISetting) => Promise<ISetting>;
+      recordingStart: () => void;
     };
   }
 }

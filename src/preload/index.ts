@@ -12,7 +12,9 @@ const api = {
   openUrl: (url: string) => {
     ipcRenderer.send('openUrl', url);
   },
-  chooseFilePath: (defaultPath?: string): Promise<Array<string> | undefined> => {
+  chooseFilePath: (
+    defaultPath?: string
+  ): Promise<Array<string> | undefined> => {
     return ipcRenderer.invoke('chooseFilePath', defaultPath);
   },
   deleteSettingById: (data: ISetting): Promise<number> => {
@@ -23,6 +25,9 @@ const api = {
   },
   selectOneSetting: (data: ISetting): Promise<ISetting> => {
     return ipcRenderer.invoke('selectOneSetting', data);
+  },
+  recordingStart: () => {
+    ipcRenderer.send('recordingStart');
   }
 };
 

@@ -5,9 +5,10 @@ import { initDatabase } from './database';
 import {
   registerWindowControl,
   registerOpenUrl,
-  registerFileOperate
+  registerFileOperate,
+  registerSqlOperate,
+  registerRecording
 } from './ipc';
-import { registerSqlOperate } from './ipc/sqlOperate';
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -29,6 +30,7 @@ app.whenReady().then(() => {
   registerOpenUrl();
   registerFileOperate(mainWindow);
   registerSqlOperate();
+  registerRecording();
   if (is.dev) mainWindow.webContents.openDevTools();
 
   app.on('activate', function () {

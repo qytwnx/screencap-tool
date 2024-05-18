@@ -1,0 +1,21 @@
+.recording-container {
+  @apply w-full h-full flex flex-col;
+  .recording-container-info {
+    @apply border my-2 p-2 rounded-md;
+  }
+  .recording-container-operate {
+    @apply w-full flex;
+    .recording-container-operate-option {
+      @apply flex-shrink-0 flex flex-col gap-5;
+      .recording-container-operate-option-item {
+        @apply flex gap-2 text-xl border p-3 rounded-md;
+      }
+    }
+    .recording-container-operate-button {
+      @apply flex-1 flex-shrink-0 flex flex-col justify-center items-center;
+      .recording-container-operate-button-start {
+        @apply w-36 h-36 cursor-pointer hover:bg-blue-500 flex items-center justify-center rounded-full border-8 text-4xl font-bold;
+      }
+    }
+  }
+}
