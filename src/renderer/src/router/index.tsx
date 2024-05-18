@@ -3,6 +3,7 @@ import { lazy } from 'react';
 import { createHashRouter } from 'react-router-dom';
 import SettingLoader from '@renderer/views/setting/loader';
 import SettingAction from '@renderer/views/setting/action';
+import StartAnimation from '@renderer/views/recording/start-animation';
 
 const router = createHashRouter([
   {
@@ -28,6 +29,10 @@ const router = createHashRouter([
         Component: lazy(() => import('@renderer/views/setting'))
       }
     ]
+  },
+  {
+    path: 'startAnimation',
+    element: <StartAnimation />
   }
 ]);
 export default router;

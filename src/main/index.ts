@@ -24,19 +24,19 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window);
   });
 
-  const mainWindow = createWindow();
+  const mainWindow = createWindow({});
   initDatabase();
   registerWindowControl(mainWindow);
   registerOpenUrl();
   registerFileOperate(mainWindow);
   registerSqlOperate();
-  registerRecording();
+  registerRecording(mainWindow);
   if (is.dev) mainWindow.webContents.openDevTools();
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
-    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+    if (BrowserWindow.getAllWindows().length === 0) createWindow({});
   });
 });
 
