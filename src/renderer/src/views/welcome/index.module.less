@@ -1,0 +1,21 @@
+.welcome-container {
+  @apply w-full h-full p-2 flex flex-col items-center;
+  .welcome-container-title {
+    @apply text-3xl font-bold;
+  }
+  .welcome-container-tags {
+    @apply flex gap-2 my-3 text-xl;
+  }
+  .welcome-container-release {
+    @apply flex flex-col gap-3 my-5;
+    .welcome-container-release-item {
+      @apply flex gap-3;
+      .welcome-container-release-item-time {
+        @apply flex-shrink-0;
+      }
+      .welcome-container-release-item-content {
+        @apply break-all font-bold;
+      }
+    }
+  }
+}
