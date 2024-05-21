@@ -17,10 +17,9 @@ const Welcome = () => {
   const releaseList: Array<IReleaseItem> = [
     {
       id: '1',
-      time: '2024-05-16',
-      content: '初始化工程初始化工程'
-    },
-    { id: '2', time: '2024-05-17', content: '引入SQLite' }
+      time: '2024-05-21',
+      content: '初步实现录屏功能，暂时无法录音'
+    }
   ];
 
   return (
@@ -50,18 +49,14 @@ const Welcome = () => {
             </div>
           ))}
         </div>
-        <footer className="footer footer-center p-10 bg-base-200 text-base-content rounded">
-          <nav>
-            <div className="flex gap-4 text-3xl">
-              <QqOutlined />
-              <GithubOutlined />
-              <BilibiliOutlined />
-              <TikTokOutlined />
-            </div>
-          </nav>
-          <aside>
-            <p>Copyright © 2024 - All right reserved by QYT-WNX</p>
-          </aside>
+        <footer className="w-full flex flex-col items-center border gap-5 p-5 bg-base-200 text-base-content rounded">
+          <div className="flex gap-4 text-3xl">
+            <QqOutlined />
+            <GithubOutlined />
+            <BilibiliOutlined />
+            <TikTokOutlined />
+          </div>
+          <p>Copyright © 2024 - All right reserved by QYT-WNX</p>
         </footer>
       </div>
     </>

@@ -7,6 +7,7 @@ import {
   SettingOutlined,
   VideoCameraAddOutlined
 } from '@ant-design/icons';
+import { IMenuItem } from '@renderer/model/app';
 
 const Aside = () => {
   const navigate = useNavigate();
@@ -69,11 +70,9 @@ const Aside = () => {
           ))}
         </nav>
         <div className="w-full flex flex-col items-center text-sm my-5 gap-1"></div>
-        <footer className="footer footer-center p-4 text-base-content">
-          <aside>
-            <p>Design By QYT-WNX</p>
-            <p>v{config.version}</p>
-          </aside>
+        <footer className="w-full flex flex-col items-center gap-2">
+          <p>Design By QYT-WNX</p>
+          <p>v{config.version}</p>
         </footer>
       </div>
     </>

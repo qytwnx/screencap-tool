@@ -1,10 +1,20 @@
+import { ISetting } from '@renderer/model/app';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 interface AppStateProps {
   isdark: boolean;
+  setting: ISetting;
   setIsdark: (data: boolean) => boolean;
+  setSetting: (data: ISetting) => ISetting;
 }
+
+const defaultSetting: ISetting = {
+  videoPath: '',
+  fileFormat: 'mp4',
+  resolution: '1920x1080',
+  frameRate: 30
+};
 
 export const useAppStore = create<AppStateProps>()(
   persist(
@@ -12,6 +22,11 @@ export const useAppStore = create<AppStateProps>()(
       isdark: window.matchMedia('(prefers-color-scheme: dark)').matches,
       setIsdark: (data) => {
         set({ isdark: data });
+        return data;
+      },
+      setting: defaultSetting,
+      setSetting: (data) => {
+        set({ setting: data });
         return data;
       }
     }),

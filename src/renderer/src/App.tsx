@@ -1,5 +1,3 @@
-import Aside from '@renderer/components/aside';
-import Header from '@renderer/components/header';
 import PageLoading from '@renderer/components/page-loading';
 import { Suspense, memo } from 'react';
 import { Outlet } from 'react-router-dom';
@@ -11,26 +9,16 @@ function App(): JSX.Element {
 
   return (
     <>
-      <div className="h-screen w-screen flex">
-        <div className="flex-shrink-0">
-          <Aside />
-        </div>
-        <div className="flex-1 flex flex-col">
-          <div className="flex-shrink-0">
-            <Header />
-          </div>
-          <div className="p-3 w-full flex-1">
-            <ConfigProvider
-              theme={{
-                algorithm: isdark ? theme.darkAlgorithm : theme.defaultAlgorithm
-              }}
-            >
-              <Suspense fallback={<PageLoading />}>
-                <Outlet />
-              </Suspense>
-            </ConfigProvider>
-          </div>
-        </div>
+      <div className="h-screen w-screen">
+        <ConfigProvider
+          theme={{
+            algorithm: isdark ? theme.darkAlgorithm : theme.defaultAlgorithm
+          }}
+        >
+          <Suspense fallback={<PageLoading />}>
+            <Outlet />
+          </Suspense>
+        </ConfigProvider>
       </div>
     </>
   );

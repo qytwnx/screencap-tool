@@ -1,5 +1,15 @@
-import { contextBridge, ipcRenderer } from 'electron';
+import {
+  DesktopCapturerSource,
+  IpcRendererEvent,
+  contextBridge,
+  ipcRenderer
+} from 'electron';
 import { electronAPI } from '@electron-toolkit/preload';
+import {
+  IRecording,
+  IRecordingProgress
+} from '../renderer/src/model/recording';
+import { IPage, ISetting } from '../renderer/src/model/app';
 
 // Custom APIs for renderer
 const api = {
@@ -12,22 +22,58 @@ const api = {
   openUrl: (url: string) => {
     ipcRenderer.send('openUrl', url);
   },
+  loadDefaultVideoPath: (): Promise<string> => {
+    return ipcRenderer.invoke('loadDefaultVideoPath');
+  },
   chooseFilePath: (
     defaultPath?: string
   ): Promise<Array<string> | undefined> => {
     return ipcRenderer.invoke('chooseFilePath', defaultPath);
   },
-  deleteSettingById: (data: ISetting): Promise<number> => {
-    return ipcRenderer.invoke('deleteSettingById', data);
+  loadDesktopCapturer: (): Promise<DesktopCapturerSource> => {
+    return ipcRenderer.invoke('loadDesktopCapturer');
   },
-  updateSettingById: (data: ISetting): Promise<number> => {
-    return ipcRenderer.invoke('updateSettingById', data);
+  startRecording: (options: ISetting) => {
+    ipcRenderer.send('startRecording', options);
   },
-  selectOneSetting: (data: ISetting): Promise<ISetting> => {
-    return ipcRenderer.invoke('selectOneSetting', data);
+  recordingAnimationClose: () => {
+    ipcRenderer.send('recordingAnimationClose');
   },
-  recordingStart: () => {
-    ipcRenderer.send('recordingStart');
+  recordingControlWindowMinimize: () => {
+    ipcRenderer.send('recordingControlWindowMinimize');
+  },
+  recordingControlWindowClose: () => {
+    ipcRenderer.send('recordingControlWindowClose');
+  },
+  recordingStatus: (callback: (message: string) => void): void => {
+    ipcRenderer.on(
+      'recordingStatus',
+      (_event: IpcRendererEvent, message: string) => {
+        callback(message);
+      }
+    );
+  },
+  stopRecording: (): void => {
+    ipcRenderer.send('stopRecording');
+  },
+  recordingProgress: (callback: (data: IRecordingProgress) => void): void => {
+    ipcRenderer.on(
+      'recordingProgress',
+      (_event: IpcRendererEvent, data: IRecordingProgress) => {
+        callback(data);
+      }
+    );
+  },
+  deleteRecording: (params: IRecording): Promise<number> => {
+    return ipcRenderer.invoke('deleteRecording', params);
+  },
+  updateRecording: (params: IRecording): Promise<number> => {
+    return ipcRenderer.invoke('updateRecording', params);
+  },
+  recordingPage: (
+    params: IRecording & { pageNumber: number; pageSize: number }
+  ): Promise<IPage<IRecording>> => {
+    return ipcRenderer.invoke('recordingPage', params);
   }
 };
 

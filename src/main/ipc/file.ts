@@ -5,8 +5,12 @@ import {
   dialog,
   ipcMain
 } from 'electron';
+import { resolve } from 'node:path';
 
 export const registerFileOperate = (win: BrowserWindow): void => {
+  ipcMain.handle('loadDefaultVideoPath', () => {
+    return resolve(app.getPath('videos'), 'QVideo');
+  });
   ipcMain.handle(
     'chooseFilePath',
     (_event: IpcMainInvokeEvent, defaultPath?: string) => {
@@ -15,7 +19,7 @@ export const registerFileOperate = (win: BrowserWindow): void => {
       }
       return dialog.showOpenDialogSync(win, {
         defaultPath: defaultPath,
-        properties: ['openDirectory']
+        properties: ['openDirectory', 'createDirectory']
       });
     }
   );

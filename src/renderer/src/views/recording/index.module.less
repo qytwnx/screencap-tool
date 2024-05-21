@@ -1,14 +1,17 @@
 .recording-container {
   @apply w-full h-full flex flex-col;
   .recording-container-info {
-    @apply border my-2 p-2 rounded-md;
+    @apply border my-2 p-2 rounded-md flex flex-col gap-2;
   }
   .recording-container-operate {
-    @apply w-full flex;
+    @apply w-full flex flex-1 items-center;
     .recording-container-operate-option {
-      @apply flex-shrink-0 flex flex-col gap-5;
+      @apply flex-shrink-0 w-44 flex flex-col gap-5;
       .recording-container-operate-option-item {
-        @apply flex gap-2 text-xl border p-3 rounded-md;
+        @apply flex gap-2 text-xl border p-3 rounded-md cursor-pointer;
+        &.active {
+          @apply bg-blue-500 text-white;
+        }
       }
     }
     .recording-container-operate-button {

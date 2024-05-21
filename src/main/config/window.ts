@@ -5,25 +5,29 @@ import { is } from '@electron-toolkit/utils';
 import icon from '../../../resources/icon.png?asset';
 
 export const createWindow = ({
-  wdith = 750,
+  width = 750,
   height = 500,
   resizable = false,
   alwaysOnTop = false,
   maximizable = false,
   transparent = false,
+  x,
+  y,
   routerPath
 }: {
-  wdith?: number;
+  width?: number;
   height?: number;
   resizable?: boolean;
   alwaysOnTop?: boolean;
   maximizable?: boolean;
   transparent?: boolean;
+  x?: number;
+  y?: number;
   routerPath?: string;
 }): BrowserWindow => {
   // Create the browser window.
   const win = new BrowserWindow({
-    width: wdith,
+    width: width,
     height: height,
     frame: false,
     show: false,
@@ -33,6 +37,8 @@ export const createWindow = ({
     maximizable: maximizable,
     transparent: transparent,
     ...(process.platform === 'linux' ? { icon } : {}),
+    ...(x ? { x: x } : {}),
+    ...(y ? { y: y } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false

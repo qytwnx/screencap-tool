@@ -1,65 +1,76 @@
+import { IRecording } from '@renderer/model/recording';
 import { Table, TableProps } from 'antd';
-
-interface DataType {
-  key: string;
-  name: string;
-  age: number;
-  address: string;
-  tags: string[];
-}
-
-const columns: TableProps<DataType>['columns'] = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-    render: (text) => <a>{text}</a>
-  },
-  {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age'
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address'
-  }
-];
-
-const data: DataType[] = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer']
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser']
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sydney No. 1 Lake Park',
-    tags: ['cool', 'teacher']
-  }
-];
+import { useEffect, useState } from 'react';
 
 const History = () => {
+  const [dataSource, setDataSource] = useState<Array<IRecording>>([]);
+  // const [currentData, setCurrentData] = useState<IRecording>({});
+  const [pageNumber, setPageNumber] = useState<number>(1);
+  const [total, setTotal] = useState<number>(0);
+
+  const columns: TableProps<IRecording>['columns'] = [
+    {
+      title: '文件名',
+      dataIndex: 'fileName',
+      key: 'fileName',
+      ellipsis: true,
+      align: 'center'
+    },
+    {
+      title: '文件路径',
+      dataIndex: 'filePath',
+      key: 'filePath',
+      ellipsis: true,
+      align: 'center'
+    },
+    {
+      title: '文件类型',
+      dataIndex: 'fileFormat',
+      key: 'fileFormat',
+      ellipsis: true,
+      align: 'center'
+    },
+    {
+      title: '时长',
+      dataIndex: 'duration',
+      key: 'duration',
+      ellipsis: true,
+      align: 'center'
+    }
+  ];
+
+  const handleLoadDataSource = async (
+    params: IRecording & { pageNumber: number; pageSize: number }
+  ) => {
+    const data = await window.api.recordingPage(params);
+    setDataSource(data.records || []);
+    setPageNumber(data.pageNumber || 1);
+    setTotal(data.total || 0);
+  };
+
+  const handleTableChange: TableProps['onChange'] = (pagination) => {
+    handleLoadDataSource({ pageNumber: pagination.current || 1, pageSize: 8 });
+  };
+
+  useEffect(() => {
+    handleLoadDataSource({ pageNumber: 1, pageSize: 8 });
+  }, []);
+
   return (
     <>
       <Table
         columns={columns}
-        dataSource={data}
+        dataSource={dataSource}
+        rowKey={'id'}
         bordered
         size="small"
-        pagination={{ hideOnSinglePage: true }}
+        pagination={{
+          pageSize: 8,
+          current: pageNumber,
+          total: total,
+          hideOnSinglePage: true
+        }}
+        onChange={handleTableChange}
       />
     </>
   );

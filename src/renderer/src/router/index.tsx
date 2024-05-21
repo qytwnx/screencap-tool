@@ -1,9 +1,10 @@
 import App from '@renderer/App';
 import { lazy } from 'react';
 import { createHashRouter } from 'react-router-dom';
-import SettingLoader from '@renderer/views/setting/loader';
-import SettingAction from '@renderer/views/setting/action';
 import StartAnimation from '@renderer/views/recording/start-animation';
+import RecordingControl from '@renderer/views/recording/recording-control';
+import RegionSelect from '@renderer/views/recording/region-select';
+import Home from '@renderer/layout/home';
 
 const router = createHashRouter([
   {
@@ -11,28 +12,40 @@ const router = createHashRouter([
     element: <App />,
     children: [
       {
-        index: true,
-        Component: lazy(() => import('@renderer/views/welcome'))
+        path: '',
+        element: <Home />,
+        children: [
+          {
+            index: true,
+            Component: lazy(() => import('@renderer/views/welcome'))
+          },
+          {
+            path: 'recording',
+            Component: lazy(() => import('@renderer/views/recording'))
+          },
+          {
+            path: 'history',
+            Component: lazy(() => import('@renderer/views/history'))
+          },
+          {
+            path: 'setting',
+            Component: lazy(() => import('@renderer/views/setting'))
+          }
+        ]
       },
       {
-        path: 'recording',
-        Component: lazy(() => import('@renderer/views/recording'))
+        path: 'startAnimation',
+        element: <StartAnimation />
       },
       {
-        path: 'history',
-        Component: lazy(() => import('@renderer/views/history'))
+        path: 'recordingControl',
+        element: <RecordingControl />
       },
       {
-        path: 'setting',
-        loader: SettingLoader,
-        action: SettingAction,
-        Component: lazy(() => import('@renderer/views/setting'))
+        path: 'regionSelect',
+        element: <RegionSelect />
       }
     ]
-  },
-  {
-    path: 'startAnimation',
-    element: <StartAnimation />
   }
 ]);
 export default router;

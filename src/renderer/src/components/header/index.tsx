@@ -21,50 +21,41 @@ const Header = () => {
         <div className={styles['header-container-operate']}>
           <GithubOutlined
             className={[
-              styles['header-container-operate-item'],
-              styles['header-container-operate-item-icon']
+              'fill-current',
+              styles['header-container-operate-item']
             ].join(' ')}
             onClick={() => window.api.openUrl('https://github.com/qytwnx')}
           />
-          <label className={styles['header-container-operate-item']}>
-            <input
-              type="checkbox"
-              className="theme-controller"
-              hidden={true}
-              value={isdark ? 'dark' : 'light'}
-              onChange={() => setIsdark(!isdark)}
+          {isdark ? (
+            <SunFilled
+              className={[
+                'fill-current',
+                styles['header-container-operate-item']
+              ].join(' ')}
+              onClick={() => setIsdark(false)}
             />
-            {isdark ? (
-              <SunFilled
-                className={[
-                  'theme-controller',
-                  'fill-current',
-                  styles['header-container-operate-item-icon']
-                ].join(' ')}
-              />
-            ) : (
-              <MoonFilled
-                className={[
-                  'theme-controller',
-                  'fill-current',
-                  styles['header-container-operate-item-icon']
-                ].join(' ')}
-              />
-            )}
-          </label>
+          ) : (
+            <MoonFilled
+              className={[
+                'fill-current',
+                styles['header-container-operate-item']
+              ].join(' ')}
+              onClick={() => setIsdark(true)}
+            />
+          )}
           <div className="w-0.5 h-4 bg-gray-400" />
           <div className="flex-shrink-0 flex gap-2">
             <MinusOutlined
               className={[
-                styles['header-container-operate-item'],
-                styles['header-container-operate-item-icon']
+                'fill-current',
+                styles['header-container-operate-item']
               ].join(' ')}
               onClick={() => window.api.customWindowMinimize()}
             />
             <CloseOutlined
               className={[
-                styles['header-container-operate-item'],
-                styles['header-container-operate-item-icon']
+                'fill-current',
+                styles['header-container-operate-item']
               ].join(' ')}
               onClick={() => window.api.customWindowClose()}
             />
