@@ -5,11 +5,6 @@ import {
   ipcRenderer
 } from 'electron';
 import { electronAPI } from '@electron-toolkit/preload';
-import {
-  IRecording,
-  IRecordingProgress
-} from '../renderer/src/model/recording';
-import { IPage, ISetting } from '../renderer/src/model/app';
 
 // Custom APIs for renderer
 const api = {

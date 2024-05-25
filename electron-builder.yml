@@ -1,4 +1,4 @@
-appId: com.electron.app
+appId: com.qytwnx.screencap
 productName: screencap-tool
 directories:
   buildResources: build
@@ -14,10 +14,12 @@ asarUnpack:
 win:
   executableName: screencap-tool
 nsis:
+  oneClick: false
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
   uninstallDisplayName: ${productName}
   createDesktopShortcut: always
+  allowToChangeInstallationDirectory: true
 mac:
   entitlementsInherit: build/entitlements.mac.plist
   extendInfo:

@@ -7,7 +7,6 @@ import {
   SettingOutlined,
   VideoCameraAddOutlined
 } from '@ant-design/icons';
-import { IMenuItem } from '@renderer/model/app';
 
 const Aside = () => {
   const navigate = useNavigate();

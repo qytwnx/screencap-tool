@@ -36,7 +36,8 @@ export const createWindow = ({
     autoHideMenuBar: true,
     maximizable: maximizable,
     transparent: transparent,
-    ...(process.platform === 'linux' ? { icon } : {}),
+    icon: icon,
+    // ...(process.platform === 'linux' ? { icon } : {}),
     ...(x ? { x: x } : {}),
     ...(y ? { y: y } : {}),
     webPreferences: {

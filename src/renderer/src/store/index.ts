@@ -1,4 +1,3 @@
-import { ISetting } from '@renderer/model/app';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 

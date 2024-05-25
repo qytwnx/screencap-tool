@@ -1,4 +1,4 @@
-export type IRecording = {
+type IRecording = {
   // 主键
   id?: number;
   // 文件名
@@ -19,7 +19,7 @@ export type IRecording = {
   updatedTime?: string;
 };
 
-export type IRecordingProgress = {
+type IRecordingProgress = {
   frames?: number;
   currentFps?: number;
   currentKbps?: number;

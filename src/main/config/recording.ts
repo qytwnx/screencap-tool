@@ -3,8 +3,6 @@ import ffprobePath from '@ffprobe-installer/ffprobe';
 import ffmpeg from 'fluent-ffmpeg';
 import path from 'path';
 import { renameSync } from 'fs';
-import { ISetting } from '../../renderer/src/model/app';
-import { IRecordingProgress } from '../../renderer/src/model/recording';
 import { recordingOperate } from '../database';
 
 export default class Recording {
@@ -16,8 +14,12 @@ export default class Recording {
   init(options: ISetting) {
     this.options = options;
     this.ffmpeg = ffmpeg();
-    ffmpeg.setFfmpegPath(ffmpegPath.path);
-    ffmpeg.setFfprobePath(ffprobePath.path);
+    ffmpeg.setFfmpegPath(
+      ffmpegPath.path.replace('app.asar', 'app.asar.unpacked')
+    );
+    ffmpeg.setFfprobePath(
+      ffprobePath.path.replace('app.asar', 'app.asar.unpacked')
+    );
     return this;
   }
 

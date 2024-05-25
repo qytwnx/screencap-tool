@@ -1,5 +1,3 @@
-import { IEnumType } from '@renderer/model/app';
-
 export const RecordingStstusEnum: IEnumType<'1' | '2' | '3'> = {
   '1': { text: '等待中' },
   '2': { text: '录制中' },

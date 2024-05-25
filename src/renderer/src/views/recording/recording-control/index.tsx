@@ -6,9 +6,11 @@ import {
 } from '@ant-design/icons';
 import styles from './index.module.less';
 import { useEffect, useState } from 'react';
-import { IRecordingProgress } from '@renderer/model/recording';
+import { useAppStore } from '@renderer/store';
+import { VideoResolutionOptions } from '@renderer/constants/options';
 
 const RecordingControl = () => {
+  const setting = useAppStore((state) => state.setting);
   const [recordingStatus, setRecordingStatus] = useState<string>('1');
   const [recordingTime, setRecordingTime] = useState<string>('00:00:00');
 
@@ -33,8 +35,14 @@ const RecordingControl = () => {
     <>
       <div className={styles['recording-control-container']}>
         <div className="flex gap-5 items-center">
-          <div>1920×1080</div>
-          <div>显示器1</div>
+          <div>
+            {
+              VideoResolutionOptions.find(
+                (item) => item.value === setting?.resolution
+              )?.label
+            }
+          </div>
+          <div>{setting.frameRate}FPS</div>
         </div>
         <div className="flex gap-3 items-center">
           <div className="flex items-center gap-3 mr-10">

@@ -1,4 +1,3 @@
-import { IRecording } from '@renderer/model/recording';
 import { Table, TableProps } from 'antd';
 import { useEffect, useState } from 'react';
 

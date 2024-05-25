@@ -1,5 +1,3 @@
-import { IOptions } from '@renderer/model/app';
-
 export const FileFormatOptions: Array<IOptions<string>> = [
   { label: 'mov', value: 'mov' },
   { label: 'mp4', value: 'mp4' },

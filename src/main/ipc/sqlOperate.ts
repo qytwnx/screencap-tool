@@ -1,5 +1,4 @@
 import { IpcMainInvokeEvent, ipcMain } from 'electron';
-import { IRecording } from '../../renderer/src/model/recording';
 import { recordingOperate } from '../database';
 
 export const registerSqlOperate = () => {

@@ -1,6 +1,5 @@
 import { ElectronAPI } from '@electron-toolkit/preload';
-import { IPage } from '@renderer/model/app';
-import { IRecordingProgress } from '@renderer/model/recording';
+import { IPage, ISetting } from '../renderer/src/model/app';
 
 declare global {
   interface Window {

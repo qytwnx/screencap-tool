@@ -1,7 +1,5 @@
-import { IRecording } from '../../renderer/src/model/recording';
 import { BaseSql } from './base';
 import { getCurrentTime } from '../../renderer/src/utils/common';
-import { IPage } from '../../renderer/src/model/app';
 export default () => {
   const { insert, del, update, selectList, selectTotal } = BaseSql();
   const insertRecording = (params: IRecording): number => {
@@ -46,7 +44,7 @@ export default () => {
     paramsMap['createdTime'] = getCurrentTime();
     insertStatement += '(' + columns.join(', ') + ') ';
     insertStatement += 'VALUES (' + values.join(', ') + ')';
-    return insert(insertStatement, paramsMap);
+    return insert(insertStatement, paramsMap) as number;
   };
 
   const deleteRecording = (params: IRecording): number | undefined => {
@@ -95,7 +93,7 @@ export default () => {
       { current: current, size: size }
     );
     return {
-      records: records,
+      records: records as Array<IRecording>,
       pageNumber: pageNumber,
       pageSize: pageSize,
       total: total
