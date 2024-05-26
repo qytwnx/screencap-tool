@@ -37,6 +37,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: 'dist/*.exe'
+          files: 'dist/**'
         env:
           GITHUB_TOKEN: ${{ secrets.SCREENCAP_TOOL_SECRET }}
