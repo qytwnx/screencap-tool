@@ -1,34 +1,26 @@
 # screencap-tool
 
-An Electron application with React and TypeScript
+> 基于Electron + FFmpeg的录屏工具
 
-## Recommended IDE Setup
+---
 
-- [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+## 已实现部分
 
-## Project Setup
+- 初步实现录屏功能，暂时无法录音
+- 暗黑主题切换
 
-### Install
+---
 
-```bash
-$ yarn
-```
+## 实现效果
 
-### Development
+### 欢迎页
 
-```bash
-$ yarn dev
-```
+![Welcome](./doc/screenshots/Welcome.png)
 
-### Build
+### 录屏页
 
-```bash
-# For windows
-$ yarn build:win
+![Recording](./doc/screenshots/Recording.png)
 
-# For macOS
-$ yarn build:mac
+### 配置页
 
-# For Linux
-$ yarn build:linux
-```
+![Setting](./doc/screenshots/Setting.png)
