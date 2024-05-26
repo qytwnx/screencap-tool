@@ -1,11 +1,11 @@
-name: Build and Release
+name: Build
 on:
   push:
     branches:
       - master
 jobs:
   release:
-    name: build and release screencap-tool
+    name: Build screencap-tool
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -21,7 +21,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Build screencap-tool
-        run: npm run build:win
+        run: npm run deploy:win
         env:
           GITHUB_TOKEN: ${{ secrets.SCREENCAP_TOOL_SECRET }}
       - name: Cleanup Artifacts for Windows
@@ -33,10 +33,10 @@ jobs:
         with:
           name: ${{ matrix.os }}
           path: dist
-      - name: Release
-        uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          files: 'dist/**'
-        env:
-          GITHUB_TOKEN: ${{ secrets.SCREENCAP_TOOL_SECRET }}
+      # - name: Release
+      #   uses: softprops/action-gh-release@v2
+      #   if: startsWith(github.ref, 'refs/tags/')
+      #   with:
+      #     files: 'dist/**'
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.SCREENCAP_TOOL_SECRET }}
