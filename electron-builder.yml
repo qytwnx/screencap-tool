@@ -41,7 +41,7 @@ appImage:
   artifactName: ${name}-${version}.${ext}
 npmRebuild: false
 publish:
-  owner: QYT-WNX
+  owner: qytwnx
   provider: github
   repo: screencap-tool
   releaseType: release
