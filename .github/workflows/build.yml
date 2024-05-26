@@ -27,8 +27,8 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Build Electron App
-        run: npm run dist
+      - name: Build screencap-tool
+        run: npm run build:win
 
       - name: Cleanup Artifacts for Windows
         if: matrix.os == 'windows-latest'
