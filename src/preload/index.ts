@@ -34,8 +34,11 @@ const api = {
   recordingAnimationClose: () => {
     ipcRenderer.send('recordingAnimationClose');
   },
-  recordingControlWindowMinimize: () => {
-    ipcRenderer.send('recordingControlWindowMinimize');
+  recordingControlWindowMouseEnter: () => {
+    ipcRenderer.send('recordingControlWindowMouseEnter');
+  },
+  recordingControlWindowMouseLeave: () => {
+    ipcRenderer.send('recordingControlWindowMouseLeave');
   },
   recordingControlWindowClose: () => {
     ipcRenderer.send('recordingControlWindowClose');
@@ -69,6 +72,12 @@ const api = {
     params: IRecording & { pageNumber: number; pageSize: number }
   ): Promise<IPage<IRecording>> => {
     return ipcRenderer.invoke('recordingPage', params);
+  },
+  darkModeToggle: (mode: 'light' | 'dark'): Promise<boolean> => {
+    return ipcRenderer.invoke('dark-mode:toggle', mode);
+  },
+  darkModeStatus: (): Promise<boolean> => {
+    return ipcRenderer.invoke('dark-mode:status');
   }
 };
 

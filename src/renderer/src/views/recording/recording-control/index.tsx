@@ -1,6 +1,5 @@
 import {
   CloseOutlined,
-  MinusOutlined,
   StopOutlined,
   VideoCameraOutlined
 } from '@ant-design/icons';
@@ -14,12 +13,28 @@ const RecordingControl = () => {
   const [recordingStatus, setRecordingStatus] = useState<string>('1');
   const [recordingTime, setRecordingTime] = useState<string>('00:00:00');
 
+  const handleMouseEnterTop = (event: { clientY: number }) => {
+    console.log('handleMouseEnterTop: ', event.clientY, recordingStatus);
+
+    if (event.clientY === 0 && recordingStatus === '2') {
+      window.api.recordingControlWindowMouseEnter();
+    }
+  };
+
+  const handleMouseLeave = () => {
+    console.log('handleMouseLeave: ', recordingStatus);
+    if (recordingStatus === '2') {
+      window.api.recordingControlWindowMouseLeave();
+    }
+  };
+
   useEffect(() => {
     window.api.recordingStatus((message: string) => {
       setRecordingStatus(message);
     });
+  }, []);
+  useEffect(() => {
     window.api.recordingProgress((data: IRecordingProgress) => {
-      console.log(111115555);
       if (
         data &&
         data?.timemark &&
@@ -29,11 +44,19 @@ const RecordingControl = () => {
         setRecordingTime(data.timemark.substring(0, 8));
       }
     });
-  }, []);
+    window.addEventListener('mousemove', handleMouseEnterTop);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseEnterTop);
+    };
+  }, [recordingStatus]);
 
   return (
     <>
-      <div className={styles['recording-control-container']}>
+      <div
+        id="recording-control-container"
+        className={styles['recording-control-container']}
+        onMouseLeave={() => handleMouseLeave()}
+      >
         <div className="flex gap-5 items-center">
           <div>
             {
@@ -65,10 +88,10 @@ const RecordingControl = () => {
               <div>已就绪</div>
             )}
           </div>
-          <MinusOutlined
+          {/* <MinusOutlined
             className="p-1 cursor-pointer rounded-full bg-none hover:bg-gray-200 active:bg-gray-300"
             onClick={() => window.api.recordingControlWindowMinimize()}
-          />
+          /> */}
           <CloseOutlined
             className="p-1 cursor-pointer rounded-full bg-none hover:bg-gray-200 active:bg-gray-300"
             onClick={() => window.api.recordingControlWindowClose()}

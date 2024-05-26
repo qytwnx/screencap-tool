@@ -1,11 +1,27 @@
 import PageLoading from '@renderer/components/page-loading';
-import { Suspense, memo } from 'react';
+import { Suspense, memo, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useAppStore } from '@renderer/store';
 import { ConfigProvider, theme } from 'antd';
 
 function App(): JSX.Element {
-  const [isdark] = useAppStore((state) => [state.isdark]);
+  const [isdark, setIsdark] = useAppStore((state) => [
+    state.isdark,
+    state.setIsdark
+  ]);
+
+  const handleLoadDarkModeStatus = async () => {
+    if (isdark !== undefined) {
+      window.api.darkModeToggle(isdark ? 'dark' : 'light');
+      return;
+    }
+    const status = await window.api.darkModeStatus();
+    setIsdark(status);
+  };
+
+  useEffect(() => {
+    handleLoadDarkModeStatus();
+  }, []);
 
   return (
     <>

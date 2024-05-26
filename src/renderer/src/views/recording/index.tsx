@@ -21,8 +21,13 @@ const Recording = () => {
   const [desktopCapturerSource, setDesktopCapturerSource] = useState<
     Array<DesktopCapturerSource>
   >([]);
-  const [currentCapturerSource, setCurrentCapturerSource] =
-    useState<Pick<DesktopCapturerSource, 'id' | 'name' | 'display_id'>>();
+  const [currentCapturerSource, setCurrentCapturerSource] = useState<
+    Pick<DesktopCapturerSource, 'id' | 'name' | 'display_id'>
+  >({
+    id: 'full-screen',
+    name: '整个屏幕',
+    display_id: ''
+  });
   const [recordingMode, setRecordingMode] =
     useState<keyof typeof RecordingModeEnum>('1');
   const recordingMessageKey = 'recordingMessage';
@@ -64,7 +69,7 @@ const Recording = () => {
       {contextHolder}
       <div className={styles['recording-container']}>
         <div className={styles['recording-container-info']}>
-          <div className="w-full flex">
+          <div className="w-full overflow-hidden flex">
             <div className="flex-1 overflow-hidden whitespace-nowrap text-ellipsis">
               录制方式：{RecordingModeEnum[recordingMode].text}
             </div>
@@ -100,7 +105,11 @@ const Recording = () => {
               ].join(' ')}
               onClick={() => {
                 setRecordingMode('1');
-                setCurrentCapturerSource(desktopCapturerSource[0]);
+                setCurrentCapturerSource({
+                  id: 'full-screen',
+                  name: '整个屏幕',
+                  display_id: ''
+                });
               }}
             >
               <DesktopOutlined />

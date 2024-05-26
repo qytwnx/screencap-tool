@@ -23,6 +23,7 @@ export const registerRecording = (mainWindow: BrowserWindow): void => {
       height: 500,
       alwaysOnTop: true,
       transparent: true,
+      skipTaskbar: true,
       routerPath: 'startAnimation'
     });
     recordingControlWin = createWindow({
@@ -31,9 +32,11 @@ export const registerRecording = (mainWindow: BrowserWindow): void => {
       alwaysOnTop: true,
       transparent: false,
       y: 0,
+      skipTaskbar: true,
       routerPath: 'recordingControl'
     });
     recordingControlWin?.setBounds({ y: 0 });
+    recordingControlWin?.webContents?.openDevTools();
     mainWindow?.webContents?.send('recordingStatus', '1');
     if (recordingControlWin !== null) {
       recordingControlWin?.webContents?.send('recordingStatus', '1');
@@ -50,6 +53,9 @@ export const registerRecording = (mainWindow: BrowserWindow): void => {
     mainWindow?.webContents?.send('recordingStatus', '2');
     if (recordingControlWin !== null) {
       recordingControlWin?.webContents?.send('recordingStatus', '2');
+      recordingControlWin?.setOpacity(0.01);
+      recordingControlWin?.setContentProtection(true);
+      recordingControlWin?.setIgnoreMouseEvents(true, { forward: true });
       recording.run({
         progressCollback: (data: IRecordingProgress) => {
           if (recordingControlWin !== null) {
@@ -59,18 +65,43 @@ export const registerRecording = (mainWindow: BrowserWindow): void => {
       });
     }
   });
-  ipcMain.on('recordingControlWindowMinimize', () => {
+  ipcMain.on('recordingControlWindowMouseEnter', () => {
     if (recordingControlWin !== null) {
-      recordingControlWin?.minimize();
+      recordingControlWin?.setOpacity(1);
+      recordingControlWin?.setIgnoreMouseEvents(false);
+    }
+  });
+  ipcMain.on('recordingControlWindowMouseLeave', () => {
+    if (recordingControlWin !== null) {
+      recordingControlWin?.setOpacity(0.01);
+      recordingControlWin?.setIgnoreMouseEvents(true, { forward: true });
     }
   });
   ipcMain.on('recordingControlWindowClose', () => {
+    if (recording.isRunning()) {
+      recording.stop(() => {
+        if (recordingControlWin !== null) {
+          recordingControlWin?.destroy();
+          recordingControlWin = null;
+        }
+        const NOTIFICATION_TITLE = '录屏通知';
+        const NOTIFICATION_BODY = '录屏已完成，点击查看录屏文件';
+        new Notification({
+          title: NOTIFICATION_TITLE,
+          body: NOTIFICATION_BODY
+        }).show();
+        mainWindow.restore();
+      });
+    }
     if (recordingControlWin !== null) {
       recordingControlWin?.destroy();
       recordingControlWin = null;
     }
   });
   ipcMain.on('stopRecording', () => {
+    if (!recording.isRunning()) {
+      return;
+    }
     recording.stop(() => {
       if (recordingControlWin !== null) {
         recordingControlWin?.destroy();

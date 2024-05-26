@@ -15,7 +15,8 @@ declare global {
       loadDesktopCapturer: () => Promise<Array<DesktopCapturerSource>>;
       startRecording: (options: ISetting) => void;
       recordingAnimationClose: () => void;
-      recordingControlWindowMinimize: () => void;
+      recordingControlWindowMouseEnter: () => void;
+      recordingControlWindowMouseLeave: () => void;
       recordingControlWindowClose: () => void;
       recordingStatus: (callback: (message: string) => void) => void;
       stopRecording: () => void;
@@ -25,6 +26,8 @@ declare global {
       recordingPage: (
         params: IRecording & { pageNumber: number; pageSize: number }
       ) => Promise<IPage<IRecording>>;
+      darkModeToggle: (mode: 'light' | 'dark') => Promise<boolean>;
+      darkModeStatus: () => Promise<boolean>;
     };
   }
 }

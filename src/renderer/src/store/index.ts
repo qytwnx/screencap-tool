@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 interface AppStateProps {
-  isdark: boolean;
+  isdark: boolean | undefined;
   setting: ISetting;
   setIsdark: (data: boolean) => boolean;
   setSetting: (data: ISetting) => ISetting;
@@ -18,7 +18,7 @@ const defaultSetting: ISetting = {
 export const useAppStore = create<AppStateProps>()(
   persist(
     (set) => ({
-      isdark: window.matchMedia('(prefers-color-scheme: dark)').matches,
+      isdark: undefined,
       setIsdark: (data) => {
         set({ isdark: data });
         return data;

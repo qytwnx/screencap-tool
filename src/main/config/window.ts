@@ -13,6 +13,7 @@ export const createWindow = ({
   transparent = false,
   x,
   y,
+  skipTaskbar = false,
   routerPath
 }: {
   width?: number;
@@ -23,6 +24,7 @@ export const createWindow = ({
   transparent?: boolean;
   x?: number;
   y?: number;
+  skipTaskbar?: boolean;
   routerPath?: string;
 }): BrowserWindow => {
   // Create the browser window.
@@ -36,6 +38,7 @@ export const createWindow = ({
     autoHideMenuBar: true,
     maximizable: maximizable,
     transparent: transparent,
+    skipTaskbar: skipTaskbar,
     icon: icon,
     // ...(process.platform === 'linux' ? { icon } : {}),
     ...(x ? { x: x } : {}),

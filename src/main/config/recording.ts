@@ -8,12 +8,14 @@ import { recordingOperate } from '../database';
 export default class Recording {
   constructor(
     private options?: ISetting,
+    private running: boolean = false,
     private ffmpeg?: ffmpeg.FfmpegCommand
   ) {}
 
   init(options: ISetting) {
     this.options = options;
     this.ffmpeg = ffmpeg();
+    this.running = false;
     ffmpeg.setFfmpegPath(
       ffmpegPath.path.replace('app.asar', 'app.asar.unpacked')
     );
@@ -98,12 +100,18 @@ export default class Recording {
       })
       .outputFormat(this.options?.fileFormat || 'mp4')
       .save(saveTempPath);
+    this.running = true;
+  }
+
+  isRunning(): boolean {
+    return this.running;
   }
 
   stop(collback: () => void) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     this.ffmpeg!.ffmpegProc.stdin.write('q');
+    this.running = false;
     collback();
   }
 }

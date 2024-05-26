@@ -14,6 +14,11 @@ const Header = () => {
     state.setIsdark
   ]);
 
+  const handleDarkModeToggle = async (mode: 'light' | 'dark') => {
+    const status = await window.api.darkModeToggle(mode);
+    setIsdark(status);
+  };
+
   return (
     <>
       <div className={styles['header-container']}>
@@ -32,7 +37,7 @@ const Header = () => {
                 'fill-current',
                 styles['header-container-operate-item']
               ].join(' ')}
-              onClick={() => setIsdark(false)}
+              onClick={() => handleDarkModeToggle('light')}
             />
           ) : (
             <MoonFilled
@@ -40,7 +45,7 @@ const Header = () => {
                 'fill-current',
                 styles['header-container-operate-item']
               ].join(' ')}
-              onClick={() => setIsdark(true)}
+              onClick={() => handleDarkModeToggle('dark')}
             />
           )}
           <div className="w-0.5 h-4 bg-gray-400" />
