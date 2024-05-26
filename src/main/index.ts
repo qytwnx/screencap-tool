@@ -1,5 +1,5 @@
 import { BrowserWindow, app } from 'electron';
-import { electronApp, optimizer } from '@electron-toolkit/utils';
+import { electronApp, is, optimizer } from '@electron-toolkit/utils';
 import { createWindow, createTray } from './config';
 import { initDatabase } from './database';
 import {
@@ -30,9 +30,9 @@ app.whenReady().then(() => {
   registerFileOperate(mainWindow);
   registerSqlOperate();
   registerRecording(mainWindow);
-  // if (is.dev) {
-  mainWindow.webContents.openDevTools();
-  // }
+  if (is.dev) {
+    mainWindow.webContents.openDevTools();
+  }
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the

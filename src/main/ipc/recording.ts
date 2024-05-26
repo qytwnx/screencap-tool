@@ -6,6 +6,7 @@ import {
   Notification
 } from 'electron';
 import { createWindow, Recording } from '../config';
+import { is } from '@electron-toolkit/utils';
 
 let recordingAnimationWin: BrowserWindow | null = null;
 let recordingControlWin: BrowserWindow | null = null;
@@ -36,7 +37,9 @@ export const registerRecording = (mainWindow: BrowserWindow): void => {
       routerPath: 'recordingControl'
     });
     recordingControlWin?.setBounds({ y: 0 });
-    recordingControlWin?.webContents?.openDevTools();
+    if (is.dev) {
+      recordingControlWin?.webContents?.openDevTools();
+    }
     mainWindow?.webContents?.send('recordingStatus', '1');
     if (recordingControlWin !== null) {
       recordingControlWin?.webContents?.send('recordingStatus', '1');
